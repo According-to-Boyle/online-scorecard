@@ -1,0 +1,39 @@
+html{
+  display: block;
+  background-color: white;
+  border: 1px solid gray;
+  width: 100%;
+  margin: 5px;
+  padding: 5px;
+}
+
+header, footer{
+  display: block;
+  background-color: black;
+  color: white;
+}
+
+nav{
+  float: right;
+  background-color: red;
+  max-width: 120px;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+th {
+  border-bottom: 1px solid black;
+  padding: 5px;
+}
+
+td{
+  text-align: center;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  padding: 5px;
+}
+tr:nth-child(odd){
+  border-bottom: 1px solid black;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Boyle Family Games - Score Card</title>
+
+  <link rel="stylesheet" type="text/css" href="standard.css"></link>
+
+</head>
+
+<body>
+  <header>
+    <h1 id="gamename">Game Title</h1>
+  </header>
+
+  <nav>
+    <button type="button" onclick="addGameName()">Add Game name</button>
+    <button type="button" onclick="addPlayers()">Add team names</button>
+    <button type="button" onclick="document.getElementById('scores').innerHTML='500 &emsp; &emsp; 300 &emsp; &emsp; 900'">Add Scores</button>
+  </nav>
+
+  <table id="scoreTable" style="width:80%">
+
+  </table>
+
+  <script>
+  function addGameName() {
+      var gametext = prompt("Please enter name of Game", "Mille Bornes");
+      if (gametext != null) {
+          document.getElementById("gamename").innerHTML =
+          gametext;
+      }
+  }
+  function addPlayers(){
+      var numPlayersPrompt = prompt("Please enter the number of players/teams, integer input only");
+      var numPlayers = parseInt(numPlayersPrompt);
+        if (numPlayers != null) {
+          var table = document.getElementById("scoreTable");
+          var teamrow = table.insertRow(0);
+          var teams = [];
+          var j = 0;
+          var cellinput;
+          for (var i = 0; i < numPlayers; i++) {
+              j++;
+              cellinput = teamrow.insertCell(i);
+              cellinput.innerHTML = prompt("Enter name for team " + j);
+              teams.push(cellinput.innerHTML);
+          }
+      }
+  }
+  </script>
+
+  <footer>
+  </footer>
+
+</body>
+
+</html>
