@@ -10,15 +10,16 @@
 
 </head>
 
-<body>
+<body onload="reloadVars()">
   <header>
     <h1 id="gamename">Game Title</h1>
   </header>
-
+  
   <nav>
     <button type="button" onclick="addGameName()">Add Game name</button>
     <button type="button" onclick="addPlayers()">Add team names</button>
     <button type="button" onclick="document.getElementById('scores').innerHTML='500 &emsp; &emsp; 300 &emsp; &emsp; 900'">Add Scores</button>
+    <button type="button" onclick="clearCache()">Clear Game</button>
   </nav>
 
   <table id="scoreTable" style="width:80%">
@@ -26,16 +27,28 @@
   </table>
 
   <script>
-  function addGameName() {
-      var gametext = prompt("Please enter name of Game", "Mille Bornes");
+  function addGameName(promptPlayer=true) {
+      var gametext = localStorage.getItem('OSC-gametext');
+
+      if (gametext == null && promptPlayer) {
+          gametext = prompt("Please enter name of Game", "Mille Bornes");
+      }
       if (gametext != null) {
           document.getElementById("gamename").innerHTML =
           gametext;
+          localStorage.setItem('OSC-gametext',gametext);
       }
   }
-  function addPlayers(){
-      var numPlayersPrompt = prompt("Please enter the number of players/teams, integer input only");
+  function addPlayers(promptPlayer=true){
+      var playerName;
+      var numPlayersPrompt = localStorage.getItem('OSC-numPlayers');
+
+      if (numPlayersPrompt == null && promptPlayer) {
+          numPlayersPrompt = prompt("Please enter the number of players/teams, integer input only");
+      }
+
       var numPlayers = parseInt(numPlayersPrompt);
+      localStorage.setItem('OSC-numPlayers',numPlayersPrompt);
         if (numPlayers != null) {
           var table = document.getElementById("scoreTable");
           var teamrow = table.insertRow(0);
@@ -45,9 +58,36 @@
           for (var i = 0; i < numPlayers; i++) {
               j++;
               cellinput = teamrow.insertCell(i);
-              cellinput.innerHTML = prompt("Enter name for team " + j);
+              playerName = localStorage.getItem('OSC-player'+i.toString());
+              if (playerName == null) {
+                  cellinput.innerHTML = prompt("Enter name for team " + j);
+              } 
+              else {
+                  cellinput.innerHTML = playerName;
+              }            
               teams.push(cellinput.innerHTML);
+              localStorage.setItem('OSC-player'+i.toString(),cellinput.innerHTML);
           }
+      }
+  }
+  function clearCache(){
+      var numPlayers = localStorage.getItem('OSC-numPlayers');
+      for (var i=0; i< numPlayers; i++) {
+          localStorage.removeItem('OSC-player'+i.toString());
+      }
+      localStorage.removeItem('OSC-gametext');
+      localStorage.removeItem('OSC-numPlayers');
+      location.reload();
+  }
+  function reloadVars(){
+      var varOSC;
+      varOSC = localStorage.getItem('OSC-gametext');
+      if (varOSC != null) {
+          addGameName(false);
+      }
+      varOSC = localStorage.getItem('OSC-numPlayers');
+      if (varOSC != null) {
+         addPlayers(false);
       }
   }
   </script>
