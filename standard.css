@@ -14,9 +14,9 @@ header, footer{
 }
 
 nav{
-  float: right;
+  float: left;;
   background-color: red;
-  max-width: 120px;
+  max-width: 150px;
 }
 
 table{
